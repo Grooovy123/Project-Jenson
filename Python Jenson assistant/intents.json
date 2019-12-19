@@ -63,19 +63,7 @@
          "patterns": ["test", "run test"],
          "responses": ["Function: 4"],
          "context_set": ""
-        },        
-        {"tag": "retrain_test",
-         "patterns": ["retrain test", "run retrain test"],
-         "responses": ["Function: 5"],
-         "context_set": ""
-        },        
-        {"tag": "retrain_test_new",
-         "patterns": ["new retrain test", "run new retrain test"],
-         "responses": ["Function: 6"],
-         "context_set": ""
         }
-
-
    ]
 }
 

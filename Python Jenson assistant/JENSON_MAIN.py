@@ -158,9 +158,7 @@ def chat(model, words, labels, data, func):
                         1: func.get_day(func_num),
                         2: func.retrain_jenson(func_num, func.remove_model(func_num), func),
                         3: func.search_web(func_num, func.get_query_for_web(func_num, inp, data)),
-                        4: func.test(func_num),
-                        5: func.retrain_test(func_num),
-                        6: func.retrain_test_new(func_num)
+                        4: func.test(func_num)
                         }
                         
                         print(switch[func_num])
