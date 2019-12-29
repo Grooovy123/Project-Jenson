@@ -5,7 +5,10 @@ import datetime
 from JENSON_MAIN import *
 import requests
 import webbrowser
-import wikipedia 
+import wikipedia
+import os 
+import vlc
+
 
 class Function():
 	def __init__(self):
@@ -102,9 +105,47 @@ class Function():
 				query = query.split()
 				webbrowser.open(f"https://www.{query[1]}.com")
 				return f"{query[1]} is now open"
-			except Exception as e:
+			except Exception as e:				
 				return e
-			 
+
+	### PLAY MUSIC ###
+	def play_music(self, func_num):
+		if func_num == 7:
+			music = []
+			music_folder = "C:\\Users\\yolic\\OneDrive\\Desktop\\Music"
+			if os.path.exists(music_folder):
+				for song in os.listdir(music_folder):
+					music.append(song)				
+			try:
+				if vlc.MediaPlayer(f"{music_folder}\\{song}").get_state() != 0:
+					return f"Is playing song"
+				else:
+					if os.path.exists(music_folder):
+						for song in os.listdir(music_folder):
+							music.append(song)
+
+						song = random.choice(music)
+						p = vlc.MediaPlayer(f"{music_folder}\\{song}")
+						p.play()
+						song = song.split(" - ")[0]
+						return f"now playing {song}"
+									
+					else:
+						return False
+
+			except Exception as e:				
+				return e
+
+	### STOP MUSIC ###
+	def stop_music(self, func_num):
+		if func_num == 8:			
+			p = vlc.MediaPlayer()
+			p.stop()
+			return
+
+
+
+
 
 			
 			

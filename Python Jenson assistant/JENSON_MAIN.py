@@ -162,7 +162,6 @@ def chat(model, words, labels, data, func):
                     responses = tg['responses']
                     print(random.choice(responses))
 
-
 def case(func_num, inp, data, func):
 
     switch = {
@@ -172,11 +171,12 @@ def case(func_num, inp, data, func):
             3: func.search_web(func_num, func.get_query_for_web(func_num, inp, data)),
             4: func.test(func_num),
             5: func.Wiki_search(func_num, inp),
-            6: func.open_browsers(func_num, inp)
+            6: func.open_browsers(func_num, inp),
+            7: func.play_music(func_num),
+            8: func.stop_music(func_num)
             }
 
     return switch[func_num]
-
     
 if __name__ == '__main__':
     main()

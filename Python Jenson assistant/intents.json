@@ -73,7 +73,18 @@
          "patterns": ["open youtube", "open facebook"],
          "responses": ["Function: 6"],
          "context_set": ""
+        },        
+        {"tag": "play_music",
+         "patterns": ["play music"],
+         "responses": ["Function: 7"],
+         "context_set": ""
+        },        
+        {"tag": "stop_music",
+         "patterns": ["stop music"],
+         "responses": ["Function: 8"],
+         "context_set": ""
         }
+
 
    ]
 }
