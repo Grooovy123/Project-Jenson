@@ -4,7 +4,8 @@ from datetime import date
 import datetime
 from JENSON_MAIN import *
 import requests
-import webbrowser 
+import webbrowser
+import wikipedia 
 
 class Function():
 	def __init__(self):
@@ -65,9 +66,7 @@ class Function():
 					patterns = tag['patterns']
 					for i in range(len(patterns)):													
 						if patterns[i] in query:
-							query = query.replace(patterns[i]+" ", "")												
-						elif "jenson" in query:
-							query = query.replace("jenson ", "")				
+							query = query.replace(patterns[i]+" ", "")									
 												
 					return query		
 
@@ -84,14 +83,33 @@ class Function():
 		if func_num == 4:			
 			return f"WTF IS GOING ON"		
 
-	def retrain_test(self, func_num):
+	### WIKI SEARCH FOR QUESTIONS ###
+	def Wiki_search(self, func_num, query):
 		if func_num == 5:
-			return f"Retain works"
+			try:
+				print(f"Searching wiki: {query}")
+				start_time = time.time()
+				reaults = wikipedia.summary(query, sentences=2)
+				print(f"Time took: {time.time() - start_time} seconds")	
+				return f"Acording to wikipedia {reaults}"			
+			except Exception as e:
+				return e
 
-	def retrain_test_new(self, func_num):
+	### OPEN WEB BROWSER TO SPECIFIC SITE ###
+	def open_browsers(self, func_num, query):
 		if func_num == 6:
-			return f"Retain works new"
+			try:
+				query = query.split()
+				webbrowser.open(f"https://www.{query[1]}.com")
+				return f"{query[1]} is now open"
+			except Exception as e:
+				return e
+			 
 
+			
+			
+			
+			
 
 
 

@@ -107,9 +107,7 @@ def DNN(training, output, running):
         if os.path.exists("model.tflearn.meta"):        
             model.load("model.tflearn")
         else:
-            model.fit(training, output, n_epoch=1000, batch_size=8, show_metric=True)
-            model.save("model.tflearn")
-            model.load("model.tflearn")
+            train(model, training, output)
 
         running = True
         return model
@@ -151,17 +149,9 @@ def chat(model, words, labels, data, func):
                     responses = tg['responses']
 
                     if 'Function: ' in responses[0]:            
-                        func_num = int(responses[0][10:])                       
+                        func_num = int(responses[0][10:])                      
 
-                        switch = {
-                        0: func.get_time(func_num),
-                        1: func.get_day(func_num),
-                        2: func.retrain_jenson(func_num, func.remove_model(func_num), func),
-                        3: func.search_web(func_num, func.get_query_for_web(func_num, inp, data)),
-                        4: func.test(func_num)
-                        }
-                        
-                        print(switch[func_num])
+                        print(case(func_num, inp, data, func))                    
 
                     else:
                         print(random.choice(responses))
@@ -171,6 +161,22 @@ def chat(model, words, labels, data, func):
                 if tg['tag'] == "unable_to_answer":
                     responses = tg['responses']
                     print(random.choice(responses))
+
+
+def case(func_num, inp, data, func):
+
+    switch = {
+            0: func.get_time(func_num),
+            1: func.get_day(func_num),
+            2: func.retrain_jenson(func_num, func.remove_model(func_num), func),
+            3: func.search_web(func_num, func.get_query_for_web(func_num, inp, data)),
+            4: func.test(func_num),
+            5: func.Wiki_search(func_num, inp),
+            6: func.open_browsers(func_num, inp)
+            }
+
+    return switch[func_num]
+
     
 if __name__ == '__main__':
     main()

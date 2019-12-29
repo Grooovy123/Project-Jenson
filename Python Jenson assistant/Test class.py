@@ -7,66 +7,72 @@ import pyttsx3
 import speech_recognition as sr
 import wikipedia
 
-print("Error")
-print("Error")
-try:
-	engine = pyttsx3.init('sapi5')
-except Exception as e:
-	print(e)
 
-print("Error")
-voices = engine.getProperty('voices')
-print("Error")
+string = "Hello world"
 
-engine.setProperty('voices', voices[0].id)
+string = string.split()
 
-def speak(audio):
-	engine.say(audio)
-	engine.runandwait()
+print(string[1])
+# print("Error")
+# print("Error")
+# try:
+# 	engine = pyttsx3.init('sapi5')
+# except Exception as e:
+# 	print(e)
 
-def wish_me():
-	print("Running")
-	hour = int(datetime.datetime.now().hour)
-	if hour>=0 and hour<12:
-		speak('Good morning sir')
-	else:
-		speak('Welcome back sir')
+# print("Error")
+# voices = engine.getProperty('voices')
+# print("Error")
 
-	speak('How may I help you , sir')
+# engine.setProperty('voices', voices[0].id)
 
-def take_command():
-	r = sr.Recognizer()
-	with sr.Microphone() as source:
-		print('Listening...')
-		r.pause_threshold = 1
-		audio = r.Listen(source)
+# def speak(audio):
+# 	engine.say(audio)
+# 	engine.runandwait()
 
-	try:
-		print('Recognizing...')
-		query = r.recognize_google(audio, language='en-in')
-		print(f"You: {query}\n")
+# def wish_me():
+# 	print("Running")
+# 	hour = int(datetime.datetime.now().hour)
+# 	if hour>=0 and hour<12:
+# 		speak('Good morning sir')
+# 	else:
+# 		speak('Welcome back sir')
 
-	except Exception as e:
-		print(e)
-		print("Sorry please say that again...")
-		return query 
+# 	speak('How may I help you , sir')
 
-	return query
+# def take_command():
+# 	r = sr.Recognizer()
+# 	with sr.Microphone() as source:
+# 		print('Listening...')
+# 		r.pause_threshold = 1
+# 		audio = r.Listen(source)
 
-print("Error")
-print("Broken")
-wish_me()
-while True:		
-	speak("Husbands ask repeated resolved but laughter debating. She end cordial visitor noisier fat subject general picture. ")
-	query = take_command().lower()
+# 	try:
+# 		print('Recognizing...')
+# 		query = r.recognize_google(audio, language='en-in')
+# 		print(f"You: {query}\n")
 
-	if "wikipedia" in query:
-		speak("Searching wikipedia")
-		query = query.replace("wikipedia", "")
-		reaults = wikipedia.summary(query, sentence=2)
-		speak("Acording to wikipedia")
-		print(reaults)
-		speak(reaults)
+# 	except Exception as e:
+# 		print(e)
+# 		print("Sorry please say that again...")
+# 		return query 
+
+# 	return query
+
+# print("Error")
+# print("Broken")
+# wish_me()
+# while True:		
+# 	speak("Husbands ask repeated resolved but laughter debating. She end cordial visitor noisier fat subject general picture. ")
+# 	query = take_command().lower()
+
+# 	if "wikipedia" in query:
+# 		speak("Searching wikipedia")
+# 		query = query.replace("wikipedia", "")
+# 		reaults = wikipedia.summary(query, sentence=2)
+# 		speak("Acording to wikipedia")
+# 		print(reaults)
+# 		speak(reaults)
 
 
 

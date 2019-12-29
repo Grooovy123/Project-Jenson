@@ -63,7 +63,18 @@
          "patterns": ["test", "run test"],
          "responses": ["Function: 4"],
          "context_set": ""
+        },        
+        {"tag": "Wiki",
+         "patterns": ["What", "who", "when", "where"],
+         "responses": ["Function: 5"],
+         "context_set": ""
+        },        
+        {"tag": "open",
+         "patterns": ["open youtube", "open facebook"],
+         "responses": ["Function: 6"],
+         "context_set": ""
         }
+
    ]
 }
 
