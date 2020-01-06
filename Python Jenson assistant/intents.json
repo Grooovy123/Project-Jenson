@@ -24,16 +24,6 @@
          "responses": ["You can call me Jenson.", "I'm Jenson!", "I'm Jenson aka Just Electronic And Software Operated Network."],
          "context_set": ""
         },
-        {"tag": "shop",
-         "patterns": ["Id like to buy something", "whats on the menu", "what do you reccommend?", "could i get something to eat"],
-         "responses": ["We sell chocolate chip cookies for $2!", "Cookies are on the menu!"],
-         "context_set": ""
-        },
-        {"tag": "hours",
-         "patterns": ["when are you guys open", "what are your hours", "hours of operation"],
-         "responses": ["We are open 7am-4pm Monday-Friday!"],
-         "context_set": ""
-        },
         {"tag": "unable_to_answer",
          "patterns": [],
          "responses": ["Sorry I cant answer that.", "Sorry I dont know that", "Sorry I didn't quite catch that", "Sorry I am not sure what your asking", "Sorry I dont undertand"],
@@ -65,7 +55,7 @@
          "context_set": ""
         },        
         {"tag": "Wiki",
-         "patterns": ["What", "who", "when", "where"],
+         "patterns": ["What is ", "who is ", "when is ", "where is "],
          "responses": ["Function: 5"],
          "context_set": ""
         },        
@@ -83,9 +73,12 @@
          "patterns": ["stop music"],
          "responses": ["Function: 8"],
          "context_set": ""
+        },        
+        {"tag": "turtle",
+         "patterns": ["turtle on the run"],
+         "responses": ["Function: 9"],
+         "context_set": ""
         }
-
-
    ]
 }
 

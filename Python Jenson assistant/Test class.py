@@ -6,13 +6,131 @@ import time
 import pyttsx3
 import speech_recognition as sr
 import wikipedia
+from mutagen.mp3 import MP3
+import os
+from pygame import mixer
+
+music_folder = " "
+single = "\\"
+doub = "\\\\"
+file = "C:\\Users\\yolic\\OneDrive\\Desktop\\Music"
+file_exists = False
+# try:
+# 	if music_folder != "":
+# 		if os.path.exists(music_folder):
+# 			print(f"True")
+# 	else:
+# 		print(f"Sorry no such folder exists or the path is no longer valid")
+# 		music_folder = str(input("Please enter the path to your music folder: "))
+# 		music_folder = music_folder.replace(single, doub)		
+# 		print(music_folder)
+
+# except Exception as e:
+# 	print(e)
+
+# if os.path.exists(music_folder):
+# 	print("hello")
+# else:
+# 	print("file error")
+
+def does_music_folder_exist(music_folder):		
+	if os.path.exists(music_folder):		
+		return music_folder
+	else:		
+		print(f"Sorry no such folder exists or the path is no longer valid")		
+		music_folder = str(input("Please enter the path to your music folder: ")).replace("\\\\", "\\")		
+		return music_folder
+
+# while file_exists == False:
+# 	music_folder = does_music_folder_exist(music_folder, file_exists)
+# 	print(f"this is the real file: {file}")
+# 	print(f"this is not working: {music_folder}")
+# 	if music_folder == file:
+# 		print(f"strings are the same")
+# 		break
+
+# does_music_folder_exist(music_folder, file_exists)
+# does_music_folder_exist(music_folder, file_exists)
 
 
-string = "Hello world"
 
-string = string.split()
 
-print(string[1])
+music = []
+i = 0
+if os.path.exists(file):
+	music = [song for song in os.listdir(file) if ".mp3" in song]
+	for song in music:
+		print(song)
+	time.sleep(3)
+	# for song in os.listdir(file):
+		# if ".webm" in song or ".wav" in song:
+		# 	pass
+		# else:
+		# 	music.append("C:\\Users\\yolic\\OneDrive\\Desktop\\Music\\"+song)
+
+def set_up():
+	mixer.init()
+
+def load_song(music, i):
+	try:
+		mixer.music.load(file+"\\"+music[0])
+	except Exception as e:		
+		mixer.music.load(file+"\\"+music[1])
+		raise e
+	
+
+def play(music, i):
+	mixer.music.load(file+"\\"+music[i])
+	mixer.music.play()
+	mixer.music.set_volume(.8)
+	song = music[i].replace(file+"\\", " ")
+	song = song.split("(")
+	print(f"now playing{song[0]}")
+
+def stop():
+	mixer.music.stop()
+
+set_up()
+#load_song(music, i)
+play(music, i)
+#pygame.mixer.music.set_volume(.5)
+print(f"volume: {mixer.music.get_volume()}")
+inp = input("Press enter to skip song")
+
+while i <= len(music)-1:
+	if inp.lower() == "skip" or inp.lower() == "":
+		if i == len(music)-1:
+			i = 0
+			play(music, i)
+		else:
+			i += 1		
+			play(music, i)
+		
+	elif inp.lower() == "stop":	
+		stop()
+	inp = input("Press enter to skip song")
+
+	
+
+
+#stop()
+
+# music = []
+# music_folder = "C:\\Users\\yolic\\OneDrive\\Desktop\\Music"
+# if os.path.exists(music_folder):
+# 	for song in os.listdir(music_folder):
+# 		music.append(song)
+
+# song_len = MP3(f"C:\\Users\\yolic\\OneDrive\\Desktop\\Music\\{music[7]}")
+
+# mins = str(song_len.info.length/60).split(".")[0]
+# seconds = str(song_len.info.length/60).split(".")[1][:2]
+# print(f"Song is {music[7]}")
+# print(f"Song length is: {mins} mins and {seconds} seconds")
+# print(f"Uncut song length is {song_len.info.length}")#
+
+
+
 # print("Error")
 # print("Error")
 # try:

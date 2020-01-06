@@ -151,7 +151,7 @@ def chat(model, words, labels, data, func):
                     if 'Function: ' in responses[0]:            
                         func_num = int(responses[0][10:])                      
 
-                        print(case(func_num, inp, data, func))                    
+                        case(func_num, inp, data, func)                  
 
                     else:
                         print(random.choice(responses))
@@ -167,13 +167,14 @@ def case(func_num, inp, data, func):
     switch = {
             0: func.get_time(func_num),
             1: func.get_day(func_num),
-            2: func.retrain_jenson(func_num, func.remove_model(func_num), func),
-            3: func.search_web(func_num, func.get_query_for_web(func_num, inp, data)),
+            2: func.remove_model(func_num),
+            3: func.get_query_for_web(func_num, inp, data),
             4: func.test(func_num),
             5: func.Wiki_search(func_num, inp),
             6: func.open_browsers(func_num, inp),
-            7: func.play_music(func_num),
-            8: func.stop_music(func_num)
+            7: func.does_music_folder_exist(func_num),#play_music
+            8: func.stop_music(func_num),
+            9: func.turtle(func_num)
             }
 
     return switch[func_num]
