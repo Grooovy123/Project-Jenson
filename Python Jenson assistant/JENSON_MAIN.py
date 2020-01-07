@@ -113,7 +113,7 @@ def DNN(training, output, running):
         return model
 
 def train(model, training, output):
-    model.fit(training, output, n_epoch=1000, batch_size=8, show_metric=True)    
+    model.fit(training, output, n_epoch=1000, batch_size=6, show_metric=True)    
     model.save("model.tflearn")    
     model.load("model.tflearn")    
 
@@ -137,26 +137,24 @@ def chat(model, words, labels, data, func):
         inp = input("You: ")
         if inp.lower() == "quit":            
             quit()
-        #start_time = time.time()
         results = model.predict([bag_of_words(inp, words)])[0]
-        #print(f"prediction took: {time.time()-start_time}")
         results_index = numpy.argmax(results)
         tag = labels[results_index]        
 
-        if results[results_index] > 0.8:
+        if results[results_index] > 0.7:
             for tg in data["intents"]:
                 if tg['tag'] == tag:
                     responses = tg['responses']
 
                     if 'Function: ' in responses[0]:            
-                        func_num = int(responses[0][10:])                      
+                        func_num = int(responses[0][10:])    
 
                         case(func_num, inp, data, func)                  
 
                     else:
                         print(random.choice(responses))
 
-        else:
+        else: 
             for tg in data["intents"]:
                 if tg['tag'] == "unable_to_answer":
                     responses = tg['responses']
@@ -172,9 +170,12 @@ def case(func_num, inp, data, func):
             4: func.test(func_num),
             5: func.Wiki_search(func_num, inp),
             6: func.open_browsers(func_num, inp),
-            7: func.does_music_folder_exist(func_num),#play_music
+            7: func.play_music(func_num),
             8: func.stop_music(func_num),
-            9: func.turtle(func_num)
+            9: func.does_music_folder_exist(func_num),
+            10: func.skip_song(func_num),
+            11: func.music_volume_control(func_num, inp),
+            12: func.shuffle_music(func_num)
             }
 
     return switch[func_num]

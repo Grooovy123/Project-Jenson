@@ -65,18 +65,33 @@
          "context_set": ""
         },        
         {"tag": "play_music",
-         "patterns": ["play music"],
+         "patterns": ["play music", "music play"],
          "responses": ["Function: 7"],
          "context_set": ""
         },        
         {"tag": "stop_music",
-         "patterns": ["stop music"],
+         "patterns": ["stop music", "music stop"],
          "responses": ["Function: 8"],
          "context_set": ""
         },        
-        {"tag": "turtle",
-         "patterns": ["turtle on the run"],
+        {"tag": "setup_music",
+         "patterns": ["set up music", "set up music folder", "set up music path"],
          "responses": ["Function: 9"],
+         "context_set": ""
+        },        
+        {"tag": "skip_song",
+         "patterns": ["skip song", "song skip", "skip music", "music skip"],
+         "responses": ["Function: 10"],
+         "context_set": ""
+        },        
+        {"tag": "volume",
+         "patterns": ["set volume", "set volume to", "turn volume up", "turn volume down"],
+         "responses": ["Function: 11"],
+         "context_set": ""
+        },        
+        {"tag": "shuffle_music",
+         "patterns": ["shuffle music"],
+         "responses": ["Function: 12"],
          "context_set": ""
         }
    ]

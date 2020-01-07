@@ -15,6 +15,48 @@ single = "\\"
 doub = "\\\\"
 file = "C:\\Users\\yolic\\OneDrive\\Desktop\\Music"
 file_exists = False
+
+func_num = 10
+
+hello = "Hello world"
+print(hello[-1:])
+quit()
+
+inp = input("set volume: ")
+
+mixer.init()
+mixer.music.set_volume(0.50)
+
+def music_volume_control(func_num, inp):
+	print(f"volume is:{mixer.music.get_volume()}")
+	if func_num == 10:			
+		volume = mixer.music.get_volume()
+
+		if "up" in inp:
+			volume += 0.10
+		elif "down" in inp:
+			volume -= 0.10
+		elif "%" == inp[-1:]:
+			try:
+				volume = int(inp[len(inp)-4:-1])/100				
+			except Exception as e:
+				volume = int(inp[len(inp)-3:-1])/100
+		else:
+			print("Error setting volume")			
+					
+		mixer.music.set_volume(volume)
+
+		if mixer.music.get_volume() < 0.10:
+			mixer.music.set_volume(0.10)
+		elif mixer.music.get_volume() > 1.0:
+			mixer.music.set_volume(1.0)
+
+		print(f"volume is:{mixer.music.get_volume()}")
+
+while True:
+	music_volume_control(func_num, inp)
+	inp = input("set volume: ")
+
 # try:
 # 	if music_folder != "":
 # 		if os.path.exists(music_folder):

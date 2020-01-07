@@ -8,6 +8,7 @@ import webbrowser
 import wikipedia
 import os 
 from pygame import mixer
+from random import shuffle
 
 class Function():
 	def __init__(self):
@@ -22,8 +23,11 @@ class Function():
 		}
 		self.music_folder = " "#C:\\Users\\yolic\\OneDrive\\Desktop\\Music
 		self.music_folder_valid = False
-		self.music_list = []	
+		self.music_list = []
+
 		mixer.init()
+		mixer.music.set_volume(0.5)
+
 		self.song_num = 0
 		self.play_music_now = False			
 
@@ -114,9 +118,11 @@ class Function():
 			except Exception as e:				
 				return print(e)
 
-	### PLAY MUSIC ###
+			#####	MUSIC 	#####
+
+	### SETUP MUSIC FOLDER LOCATION ###
 	def does_music_folder_exist(self, func_num):
-		if func_num == 7:
+		if func_num == 9:
 			if self.play_music_now == True:
 				self.play_music(func_num)
 			else:
@@ -124,44 +130,87 @@ class Function():
 					if os.path.exists(self.music_folder):
 						self.music_folder_valid = True
 						self.play_music_now = True
-						self.load_music(func_num)
-						return self.music_folder			
+						self.load_music()						
+
 					else:		
 						print(f"Sorry no such path exists or the path is no longer valid")		
-						self.music_folder = str(input("Please enter the path to your music folder: ")).replace("\\\\", "\\")						
-				
-	def load_music(self, func_num):
-		if func_num == 7:			
+						self.music_folder = str(input("Please enter the path to your music folder: ")).replace("\\\\", "\\")
+
+	### STORE MUSIC IN FOLDER TO LIST ###			
+	def load_music(self):
+		if self.music_folder_valid == True:			
 			if os.path.exists(self.music_folder):
 				self.music_list = [song for song in os.listdir(self.music_folder) if ".mp3" in song]
-				for song in self.music_list:
-					print(song)
-				self.load_song(func_num)
-				return self.music_list
+				shuffle(self.music_list)				
+				self.load_song()
+				print(len(self.music_list))				
 			else:
 				self.does_music_folder_exist(func_num)
 
-	def load_song(self, func_num):
-		if func_num == 7:
-			mixer.music.load(self.music_folder+"\\"+self.music_list[self.song_num])
-			#self.play_music(func_num)
+	### LOAD SONG READY TO PLAY ###
+	def load_song(self):
+		if self.music_folder_valid == True:
+			if self.song_num == len(self.music_list)-1:
+				self.song_num = 0
+				self.shuffle_music(12)				
+			else:				
+				self.song_num += 1
 
+			print(self.song_num)
+
+			mixer.music.load(self.music_folder+"\\"+self.music_list[self.song_num])
+
+	### SHUFFLES MUSIC LIST ###		
+	def shuffle_music(self, func_num):
+		if func_num == 12:
+			shuffle(self.music_list)		
+			
+	### PLAY MUSIC ###
 	def play_music(self, func_num):
-		if func_num == 7:			
-			mixer.music.play()
-			print("Music is playing")			
+		if func_num == 7:
+			if self.play_music_now == True:			
+				mixer.music.play()
+				print("Music is playing")
+			else:				
+				self.does_music_folder_exist(9)
+				self.play_music(7)			
 
 	### STOP MUSIC ###
 	def stop_music(self, func_num):
-		if func_num == 8:			
-			mixer.music.stop()
+		if func_num == 8:
+			if mixer.music.get_busy() == True:			
+				mixer.music.stop()
 
+	### SKIP SONG PLAYS NEXT SONG IN THE LIST ###
 	def skip_song(self, func_num):
-		pass
+		if func_num == 10:			
+			self.load_song()			
+			self.play_music(7)
 
-	def turtle(self, func_num):
-		if func_num == 9:
-			return print("Turtle on the run")
+	### VOLUME CONTROL FOR MUSIC ###
+	def music_volume_control(self, func_num, inp):
+		if func_num == 11:			
+			volume = mixer.music.get_volume()
+
+			if "up" in inp:
+				volume += 0.10
+			elif "down" in inp:
+				volume -= 0.10
+			elif "%" == inp[-1:]:
+				try:
+					volume = int(inp[len(inp)-4:-1])/100				
+				except Exception as e:
+					volume = int(inp[len(inp)-3:-1])/100
+			else:
+				print("Error setting volume")
+			
+			mixer.music.set_volume(volume)
+
+			if mixer.music.get_volume() < 0.10:
+				mixer.music.set_volume(0.10)
+			elif mixer.music.get_volume() > 1.0:
+				mixer.music.set_volume(1.0)
+
 
 
 
